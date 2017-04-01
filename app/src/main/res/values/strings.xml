@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Dagger2 Test</string>
+    <string name="randomizeMsg">Randomize!</string>
+    <string name="updateMsg">Update!</string>
+</resources>
