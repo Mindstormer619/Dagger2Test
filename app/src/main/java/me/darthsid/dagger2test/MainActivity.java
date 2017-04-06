@@ -4,11 +4,14 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.Random;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,12 +21,32 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     Random rnd;
 
+    @Inject @Named("exampleList")
+    ArrayAdapter<String> adapter;
+
+    @Inject @Named("mainActivityListView")
+    ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ((MyApp) getApplication()).getNetComponent().inject(this);
+        ((MyApp) getApplication())
+                .getNetComponent()
+                .newMainActivitySubcomponent(new MainActivityModule(this))
+                .inject(this);
+
+        setList();
+        populateList();
+    }
+
+    private void setList() {
+        listView.setAdapter(adapter);
+    }
+
+    private void populateList() {
+        adapter.addAll("Hello", "Is it", "Me", "You're Looking", "For");
     }
 
 
