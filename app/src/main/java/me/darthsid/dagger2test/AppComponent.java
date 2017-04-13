@@ -10,6 +10,7 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {AppModule.class, NetModule.class})
-public interface NetComponent {
+public interface AppComponent {
     MainActivitySubcomponent newMainActivitySubcomponent(MainActivityModule m);
+    SecondActivitySubcomponent newSecondActivitySubcomponent(PerActivityModule m);
 }

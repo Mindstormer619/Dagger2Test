@@ -1,8 +1,10 @@
 package me.darthsid.dagger2test;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
     @Inject @Named("exampleList")
     ArrayAdapter<String> adapter;
 
+    @Inject
+    Multiplier multiplier;
+
+    @Inject Adder adder;
+
     @Inject @Named("mainActivityListView")
     ListView listView;
 
@@ -33,9 +40,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ((MyApp) getApplication())
-                .getNetComponent()
+                .getAppComponent()
                 .newMainActivitySubcomponent(new MainActivityModule(this))
                 .inject(this);
+
+        Log.d("Dagger2Test", "Single Multiplier: MainActivity: " + multiplier.hashCode());
+        Log.d("Dagger2Test", "PerActivity Adder: MainActivity: " + adder.hashCode());
 
         setList();
         populateList();
@@ -57,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateTextBox(View view) {
         String s = preferences.getString("R_STRING", "Placeholder");
-        ((TextView) findViewById(R.id.sharedPrefDisplay)).setText(s);
+
+        double result = multiplier.multiply(5, 6);
+        ((TextView) findViewById(R.id.sharedPrefDisplay)).setText(s + " " + result);
     }
 
     private String getRandomString() {
@@ -69,5 +81,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return randomStringBuilder.toString();
+    }
+
+    public void gotoSecondScreen(View view) {
+        Intent intent = new Intent(this, SecondScreen.class);
+        startActivity(intent);
     }
 }

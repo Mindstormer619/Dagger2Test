@@ -7,19 +7,19 @@ import android.app.Application;
  */
 
 public class MyApp extends Application {
-    private NetComponent netComponent;
+    private AppComponent appComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        netComponent = DaggerNetComponent.builder()
+        appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .netModule(new NetModule())
                 .build();
     }
 
-    public NetComponent getNetComponent() {
-        return netComponent;
+    public AppComponent getAppComponent() {
+        return appComponent;
     }
 }

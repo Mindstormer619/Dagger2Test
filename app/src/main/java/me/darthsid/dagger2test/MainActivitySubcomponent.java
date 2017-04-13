@@ -1,9 +1,5 @@
 package me.darthsid.dagger2test;
 
-import android.widget.ArrayAdapter;
-
-import javax.inject.Named;
-
 import dagger.Subcomponent;
 
 /**
@@ -11,12 +7,8 @@ import dagger.Subcomponent;
  */
 
 
-@MainActivityScope
-@Subcomponent(modules = {MainActivityModule.class})
+@ActivityScope
+@Subcomponent(modules = {MainActivityModule.class, PerActivityModule.class})
 public interface MainActivitySubcomponent {
-
-    @Named("exampleList")
-    ArrayAdapter<String> mainArrayAdapter();
-
     void inject(MainActivity mainActivity);
 }

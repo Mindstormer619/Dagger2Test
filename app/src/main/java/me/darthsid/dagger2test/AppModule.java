@@ -30,4 +30,9 @@ public class AppModule {
     Random providesRandom() {
         return new Random();
     }
+
+    @Provides @Singleton
+    Multiplier providesMultiplier() {
+        return new Multiplier();
+    }
 }

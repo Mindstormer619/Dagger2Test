@@ -21,12 +21,12 @@ public class MainActivityModule {
     }
 
 
-    @Provides @MainActivityScope @Named("exampleList")
+    @Provides @ActivityScope @Named("exampleList")
     public ArrayAdapter<String> providesMainAdapter() {
         return new ArrayAdapter<>(mainActivity, android.R.layout.simple_list_item_1);
     }
 
-    @Provides @MainActivityScope @Named("mainActivityListView")
+    @Provides @ActivityScope @Named("mainActivityListView")
     public ListView providesListView() {
         return (ListView) mainActivity.findViewById(R.id.listView);
     }
